@@ -1,0 +1,20 @@
+{
+  "name": "personal-site",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1 --port 4321",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1 --port 4321",
+    "astro": "astro",
+    "import:resume": "node scripts/import-resume.mjs",
+    "deploy:stub": "node scripts/deploy/stub.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "astro": "^5.13.0"
+  }
+}

@@ -1,0 +1,10 @@
+!.env.example
+# build
+.DS_Store
+._*
+.astro/
+.env
+.env.*
+.idea/
+dist/
+node_modules/

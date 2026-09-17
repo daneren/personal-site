@@ -1,0 +1,175 @@
+daner
+
+ minutiadaner@163.com ·  (+86) 133-8546-2874 ·
+
+ 教育背景
+
+厦门大学, 福建, 厦门
+工学硕士 计算机科学与技术
+
+湖南科技大学, 湖南, 湘潭
+工学学士 计算机科学与技术
+
+ 论文情况
+
+2018 年 9 月 – 2021 年 6 月
+
+2013 年 9 月 – 2017 年 6 月
+
+[1] Lin, Xianming and Li, Run, Zheng, Xiawu Peng, Pai Wu, Yongjian Huang, Feiyue and Ji, Rongrong “Ag-
+gregating Global and Local Visual Representation for Vehicle Re-IDentification,” in Proceedings of the IEEE
+Transactions on Multimedia (SCI 一区), 2020
+[2] Deng, Youming and Lin, Xianming and Li, Run and Ji, Rongrong “Multi-scale Gem Pooling with N-Pair
+Center Loss for Fine-Grained Image Search,” in Proceedings of the IEEE International Conference on Multi-
+media and Expo (CCF B 类), 2019
+3] Chen, Ting and Liu, Jianxun and Cao, Buqing and Peng, Zhenlian and Wen, Yiping and Li, Run “Web Service
+Recommendation Based on Word Embedding and Topic Model,” in Proceedings of the IEEE Intl Conf on
+Parallel Distributed Processing with Applications, Ubiquitous Computing Communications, Big Data Cloud
+Computing, Social Computing Networking, Sustainable Computing Communications (CCF C 类), 2018
+
+ 工作经历
+
+腾讯 上海, 徐汇
+2021 年 7 月 – 至今
+简介: 负责大模型分布式训练加速、训练框架研发、模型压缩与量化落地；参与混元 3.0 训练优化与
+YouTu2.0 训练优化。主导自研 Youtu Agentic RL 训练框架、Tilearn.llm 训练框架、TIACC 训练加速库、
+TIACC 模型压缩库、DeepSeek 推理优化；支撑腾讯云公有云/私有云大模型平台，支持负责头部客户
+的训练优化需求；
+
+ 项目经历
+
+2025 年 12 月 – 至今
+混元 3.0 训练 infra 优化
+参与混元 3.0 训练 infra 优化工作，通过理论分析、timeline 分析、日志分析等等手段定位训练瓶颈，进
+行综合优化，在大规模训练中持续优化训练速度与训练的稳定性。
+
+• Fuse Transformers。将 Transformer Layer 的 forward 切分为多个 function 模块，backward 计算融合进
+一个 torch.autograd.Function 中，自定义的控制计算与通信顺序，在 backward 阶段使得通信（DeepEP
+A2A dispatch/combine）与开启重计算的模块（attention、MLP 等的前向计算）在不同 CUDA stream
+上 overlap 执行，接近完全掩盖开启重计算带来的计算损失，同时跨层流水化激活 offload/prefetch
+
+（GPU<–>CPU），更加激进的节省显存。
+• 流水线并行优化。针对于不定长的大规模预训练，在 VPP 场景下通过 dataloader 获取下一个 batch
+的 shape，消除 PP stage 间 send/recv 前需要先同步 tensor shape，引入 CPU-GPU sync 开销，A20B
+场景端到端提升约 4%。
+
+• 大模型大规模训练稳定性。构建完整的慢节点监控与计算通信分析模块，能够常驻训练任务中在
+极低性能损耗（<1%）的情况下自动检测慢节点，并在其他组件的支持下，完成训练任务剔除慢
+节点并重启；参与 Bit-wise 对齐工作，避免随机性带来的模型对齐问题; 解决千卡训练时的实际问
+题。
+
+YouTu2.0 训练 infra 优化
+2026 年 4 月 – 至今
+参与 YouTu2.0 训练 infra 优化，进行大模型预训练方案的全流程设计，进行系统优化，千卡集群下
+MFU 提升到 32%，吞吐提升 100%。
+
+• 参与 300B 模型预训练方案的设计。基于最小 DP 组，进行显存占用理论分析，制定模型训练的并
+行策略，反复迭代优化显存瓶颈/通信瓶颈/计算瓶颈，研究最合适的训练策略，提高整体的模型训
+练速度。
+
+• MOE 动态自适应平衡。针对 H200 集群下 MoE 训练的专家热点平衡性带来的 Loss 尖刺问题，主
+
+导设计了硬件感知型动态平衡策略。通过将 GPU Tile-size 引入辅助损失权重 w 的动态反馈回路，
+在保障语义特化（128 以内弱约束）的同时，精准拦截跨 Wave 计算气泡；最终减少约 5% 总体训
+练时间，达成 Zero-Drop 训练并显著增强了模型收敛稳定性。
+
+Agentic RL 训练框架
+2025 年 7 月 – 至今
+与算法团队合作，结合 Youtu-Agent 与 Agent Lightning 在实践中不断优化解决框架训练稳定性（内存
+稳定性、超时机制等）问题与算法稳定性（离线策略过拟合、对齐 Verl 与 Agent Lightning 参数差异
+等），设计并实现 Client-Queue-Server 分布式 Agentic RL 训练架构，通过 LLM Proxy 拦截技术实现完
+全黑盒化的 Agent 接入，解决了训练与推理部署的算子/参数一致性对齐问题。
+
+• 多轮轨迹聚合与 Response Mask。实现 Trajectory-level 训练数据构建，将多轮 Agent 对话的 N 个
+LLM call 压缩为 1 个训练样本。设计 resolve_response_mask 算法，基于尾锚点子串匹配与编辑距离
+验证，在合并后的 token 序列中精确定位 LLM 输出与工具/环境输出的边界，生成 response_mask
+（LLM 输出 =1，工具输出 =0）用于 RL 训练。支持 resolve 失败时自动降级到 Legacy 逐轮模式，保
+
+障训练鲁棒性；
+
+• 框架稳定性。实现多层级超时链路（Client request_timeout → Watchdog task_timeout → LLM Proxy
+timeout → vLLM wait_for_all_requests_complete），Watchdog 守护线程周期扫描 Worker 进程死亡与
+任务超时，支持自动重启并处理竞态条件下的任务状态一致性。实现 vLLM sleep 前的请求排空机
+制（主动 abort 未完成请求），以及客户端自动重试（失败任务以新 request_id 重新提交），确保大
+规模分布式训练的稳定运行。
+
+• 基于 openclaw 构建 RL 训练能力，基于 Youtu Agentic RL 框架本身打磨框架完全黑盒的 Agentic
+RL。设计服务级黑盒模式，使第三方 Agent 服务无需任何适配即可接入训练框架，让 Agent 服务
+与训练框架之间做到解耦（解决训练推理部署对齐问题）
+
+2025 年 2 月 – 2025 年 5 月
+大模型推理优化·deepseek
+在腾讯云 H20 上部署 Deepseek 模型，支撑内外业务，在 20 tokens/s 下提升并发。通过 allreduce EP 并
+行，定位 kernel 瓶颈，采用 int4 deepgemm、deepep、CUDA Graph 和 MTP，性能提升 84%（21.4→38.9
+token/s）。实现 all2all EP 与 PD 分离，结合 sglang、mtp、cudagraph 优化，提升 QPM、降低延迟。通
+过 EP 负载均衡解决热点专家 token 不均问题，速度再提 3-5%，Zigzag 技术后续开源至 vllm。设计 DP
+负载均衡，分离 client/Engine 逻辑，各节点自主处理 GPU 和跨机通信，缓解主节点负担。
+
+大模型推理优化·模型量化
+
+2024 年 4 月 – 2024 年 10 月
+研究模型 4bit/8bit 量化技术，针对业务模型进行 INT8 均匀量化、INT4 均匀量化及非均匀量化，优
+化知识引擎推理成本。与混元团队合作维护量化工具库，集成 LayerwiseSearchSmoothQuant 与非均匀
+4bit 算法至一站式平台。同时参与算法、工程、测试多方对齐工具建设，缩短模型上线耗时，确保结
+果稳定复现。
+
+tilearn.llm 训练框架研发
+构建大模型训练核心工具库 tilearn.llm（显存、并行、计算、PEFT 优化）及 CUDA 加速库 tilearn.ops；
+建立全流程工具链（架构、接口、加密、自动编译发布、鉴权文档），支持一键训练零代码改动。
+
+2023 年 2 月 – 2025 年 2 月
+
+• 显存优化：研究 shard init 与 load checkpoint TP，支持模型读取；结合 FlashAttention 实现 bloomz/llama
+
+的 grad checkpoint。
+
+• 并行优化：研发 tensor parallel 支持 bloomz/gpt2/chatglm 及千亿模型；开发 tilearn.llm.peft 兼容
+HuggingFace，支持 Prompt/Prefix/LoRA/Adapter 等，微调加速 1 倍以上、指标下降 <1%；通过
+monkey-patch HuggingFace Trainer+Accelerate+ColossalAI 实现零代码 3D（TP/PP/EP）并行。
+
+• 计算优化：将 ALiBi 位置编码深度融合至 FlashAttention v2 的 Tiled CUDA Kernel，为 Bloomz、
+
+Baichuan、Aquila 定制 attention kernel。
+
+• 训练支持：基于 transformers+ColossalAI+ 自研方案协助百亿/千亿模型训练，构建 baseline；助力
+
+70B 业务模型提速 2 倍，并在 V100 集群上完成客服大模型 RLHF 混合并行训练。
+
+公有云训练平台建设
+
+2021 年 7 月 – 2024 年 07 月
+• TI 平台私/公有云自动机器学习建设。完成计算机视觉多任务的自动机器学习算法建设，开发平台
+
+算法，对接平台的数据集和环境信息，建设训练，日志，指标，参数等功能的建设。
+
+• 研究基于 JIT 的 pytorch 的自动图优化技术, 研发自动量化和自动剪枝模块，支持 timm、mmdet、
+
+det2 共 3 种框架，同时和算法同学一起推动 tiacc-slim 算法库建设，达到业界先进水平。
+
+• 主导大模型训练市场建设。支持内外部大模型的训练能力建设。设计完善的模型加密方案保护内
+
+部知识产权。
+
+• 参与各类腾讯云对外 POC 项目，优化客户的算法训练效率与协助客户完成从 0 到 1 的模型训练，
+
+同时将经验积累到内部训练框架大模型领域, 实现训练速度显著提升。
+
+ 技能
+
+• 编程语言: Python、Java、Triton
+• 框架: PyTorch、Transformers、DeepSpeed、ColossalAI、Megatron、vLLM、SGLang
+• 研究领域: 大模型训练优化、Agentic RL 训练、CV 训练优化、自动驾驶训练优化、模型压缩
+
+ 获奖情况
+
+校级奖学金, 湖南科技大学
+校级奖学金, 湖南科技大学
+校级奖学金, 湖南科技大学
+优秀毕业生, 厦门大学
+
+2014 年 10 月
+2015 年 10 月
+2016 年 10 月
+2021 年 6 月
+
+

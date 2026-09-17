@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const latest = posts[0];
+---
+<BaseLayout title="daner" current="home">
+  <section class="hero-split">
+    <div class="hero-statement">
+      <h1>把复杂训推系统<br />跑稳、跑快。</h1>
+    </div>
+    <aside class="hero-rail">
+      <p class="hero-name">daner</p>
+      <p class="hero-role">ML Infra / Agentic RL</p>
+      <p class="hero-lead">
+        在 YouTu / TI 做大规模训推 infra 与 Agentic RL。这里主要写工程笔记，简历也可查。
+      </p>
+      <p class="hero-skills">Training Infra · Inference · Agentic RL</p>
+      <div class="hero-cta no-print">
+        <a class="btn btn-primary" href="/blog">阅读 Blog</a>
+        <a class="btn" href="/resume">查看简历</a>
+      </div>
+      {latest && (
+        <p class="hero-latest muted no-print">
+          最新 · <a href={`/blog/${latest.id}/`}>{latest.data.title}</a>
+        </p>
+      )}
+    </aside>
+  </section>
+</BaseLayout>

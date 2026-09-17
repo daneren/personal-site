@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="简历 · daner" current="resume" description="daner resume">
+  <article class="resume">
+    <header class="resume-head">
+      <div class="resume-head-main">
+        <h1>daner</h1>
+        <p class="resume-tagline">ML Infra / Agentic RL · 腾讯 YouTu / TI</p>
+      </div>
+      <div class="resume-head-contact">
+        <a href="mailto:minutiadaner@163.com">minutiadaner@163.com</a>
+        <span>(+86) 133-8546-2874</span>
+      </div>
+    </header>
+
+    <h2>经历</h2>
+
+    <article class="job">
+      <div class="job-year">2021</div>
+      <div class="job-body">
+        <h3>腾讯 · YouTu / TI · 上海</h3>
+        <p class="job-meta">2021.7 – 至今</p>
+        <p>大模型分布式训练加速、训练框架、模型压缩与量化；参与混元 3.0 / YouTu2.0 训推优化；主导 Youtu Agentic RL、tilearn.llm、TIACC 等；支撑腾讯云公有云 / 私有云大模型平台与头部客户训练优化。</p>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-year">2026</div>
+      <div class="job-body">
+        <h3>YouTu2.0 训推 infra</h3>
+        <p class="job-meta">2026.4 – 至今</p>
+        <ul>
+          <li>参与 YouTu2.0 训推全流程方案与系统优化；千卡集群 MFU / 吞吐提升</li>
+          <li>300B 级预训练并行策略与显存 / 通信 / 计算瓶颈迭代</li>
+          <li>MoE on H200：硬件感知动态负载均衡（Tile-size 反馈）；约 -5% 训练时间，Zero-Drop 方向</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-year">2025</div>
+      <div class="job-body">
+        <h3>混元 3.0 训推 infra</h3>
+        <p class="job-meta">2025.12 – 至今</p>
+        <ul>
+          <li>Fuse Transformers：Transformer Layer forward 拆为多 function，backward 融合进自定义 <code>torch.autograd.Function</code>；DeepEP A2A 与 attention / MLP 重计算跨 CUDA stream overlap；跨层激活 offload/prefetch</li>
+          <li>流水线并行：VPP 用 dataloader 预取下一批 shape，减少 PP send/recv 前 CPU–GPU sync；A20B 端到端约 +4%</li>
+          <li>大规模训练稳定性：慢节点监控与通信分析（&lt;1% 开销）；参与 bit-wise 对齐；支撑千卡排查</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-year">2025</div>
+      <div class="job-body">
+        <h3>Agentic RL</h3>
+        <p class="job-meta">2025.7 – 至今</p>
+        <ul>
+          <li>Youtu-Agent / Agent Lightning：对齐 Verl；Client–Queue–Server + LLM Proxy 黑盒接入</li>
+          <li>Response Mask：Trajectory 级多轮 LLM call 聚合与 <code>resolve_response_mask</code></li>
+          <li>超时链路：Client → Watchdog → LLM Proxy → vLLM；sleep 前排空 / abort 与 request_id 一致性</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-year">2025</div>
+      <div class="job-body">
+        <h3>DeepSeek 推理优化</h3>
+        <p class="job-meta">2025.2 – 2025.5</p>
+        <ul>
+          <li>腾讯云 H20：allreduce EP、int4 deepgemm / deepep、CUDA Graph、MTP；约 21.4→38.9 token/s（+84%）</li>
+          <li>all2all EP 与 PD 分离（sglang / mtp / cudagraph）；EP 负载均衡再提约 3–5%</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-year">2024</div>
+      <div class="job-body">
+        <h3>量化</h3>
+        <p class="job-meta">2024.4 – 2024.10</p>
+        <ul>
+          <li>INT8 / INT4 均匀与非均匀量化；LayerwiseSearch / SmoothQuant；混元侧量化工具库共建</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-year">2023</div>
+      <div class="job-body">
+        <h3>tilearn.llm</h3>
+        <p class="job-meta">2023.2 – 2025.2</p>
+        <ul>
+          <li>tilearn.llm / PEFT / CUDA ops；shard init、TP load checkpoint、FlashAttention</li>
+          <li>tensor parallel；HuggingFace PEFT（Prompt / Prefix / LoRA / Adapter）</li>
+          <li>ALiBi 融合 FlashAttention v2；70B 级加速与 V100 RLHF 混合并行</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-year">2021</div>
+      <div class="job-body">
+        <h3>TI 视觉 / 公有云训练平台</h3>
+        <p class="job-meta">2021.7 – 2024.7</p>
+        <ul>
+          <li>TI 平台 CV AutoML；JIT 图优化、自动量化 / 剪枝；tiacc-slim</li>
+          <li>大模型训练市场与加密方案；对外 POC 训推加速</li>
+        </ul>
+      </div>
+    </article>
+
+    <h2>技能</h2>
+    <div class="skills-grid">
+      <div>
+        <h3>语言</h3>
+        <p>Python · Java · Triton</p>
+      </div>
+      <div>
+        <h3>框架 / 训推</h3>
+        <p>PyTorch · Transformers · DeepSpeed · ColossalAI · Megatron · vLLM · SGLang</p>
+      </div>
+      <div>
+        <h3>方向</h3>
+        <p>Agentic RL · CV · 训推加速</p>
+      </div>
+    </div>
+
+    <h2>教育</h2>
+    <article class="job">
+      <div class="job-year">2018</div>
+      <div class="job-body">
+        <h3>厦门大学 · 工学硕士 · 计算机科学与技术</h3>
+        <p class="job-meta">2018.9 – 2021.6 · 福建 · 厦门</p>
+      </div>
+    </article>
+    <article class="job">
+      <div class="job-year">2013</div>
+      <div class="job-body">
+        <h3>湖南科技大学 · 工学学士 · 计算机科学与技术</h3>
+        <p class="job-meta">2013.9 – 2017.6 · 湖南 · 湘潭</p>
+      </div>
+    </article>
+
+    <h2>论文</h2>
+    <ol class="papers">
+      <li>Lin, Xianming; <strong>Li, Run</strong>; Zheng, Xiawu; Peng, Pai; Wu, Yongjian; Huang, Feiyue; Ji, Rongrong. “Aggregating Global and Local Visual Representation for Vehicle Re-IDentification,” <em>IEEE TMM</em>, 2020.</li>
+      <li>Deng, Youming; Lin, Xianming; <strong>Li, Run</strong>; Ji, Rongrong. “Multi-scale Gem Pooling with N-Pair Center Loss for Fine-Grained Image Search,” <em>IEEE ICME</em>, 2019.</li>
+      <li>Chen, Ting; Liu, Jianxun; Cao, Buqing; Peng, Zhenlian; Wen, Yiping; <strong>Li, Run</strong>. “Web Service Recommendation Based on Word Embedding and Topic Model,” <em>IEEE ISPA / …</em>, 2018.</li>
+    </ol>
+
+    <h2>荣誉</h2>
+    <ul>
+      <li>校级奖学金（本科，2014 / 2015 / 2016）</li>
+      <li>硕士阶段荣誉（厦门大学，2021.6）</li>
+    </ul>
+  </article>
+</BaseLayout>
